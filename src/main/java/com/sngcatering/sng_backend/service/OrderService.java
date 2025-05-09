@@ -49,6 +49,7 @@ public class OrderService {
 
         order.setTotalPrice(totalPrice);
         Order savedOrder = orderRepository.save(order);
+        System.out.println("Saved order: " + savedOrder);
 
         cartService.clearCart(sessionId);
         return savedOrder;

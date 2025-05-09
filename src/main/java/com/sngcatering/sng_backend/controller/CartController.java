@@ -3,6 +3,7 @@ package com.sngcatering.sng_backend.controller;
 import com.sngcatering.sng_backend.entity.CartItem;
 import com.sngcatering.sng_backend.service.CartService;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.cache.annotation.Cacheable;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
@@ -16,6 +17,7 @@ public class CartController {
     private CartService cartService;
 
     @GetMapping("/{sessionId}")
+    @Cacheable(value = "cartItems", key = "#sessionId")
     public ResponseEntity<List<CartItem>> getCartItems(@PathVariable String sessionId) {
         return ResponseEntity.ok(cartService.getCartItems(sessionId));
     }
